@@ -1,0 +1,25 @@
+D3 resorces:
+https://github.com/d3/d3/wiki
+
+LAST VIDEO 
+https://www.youtube.com/watch?v=svT9RdyQlrw
+
+
+
+Multiple Parent Nodes D3.js
+http://bl.ocks.org/robschmuecker/6afc2ecb05b191359862
+
+D3 Tree Layout Separation Between Nodes using NodeSize
+http://stackoverflow.com/questions/17558649/d3-tree-layout-separation-between-nodes-using-nodesize
+
+
+D3 js Drag and Drop Zoomable Tree. Zoomable, Panning, Collapsible Tree with Auto-sizing.
+http://www.robschmuecker.com/d3-js-drag-and-drop-zoomable-tree/#comment-6190
+
+http://jsfiddle.net/augburto/YMa2y/
+
+https://gist.github.com/robschmuecker/6afc2ecb05b191359862
+
+
+https://github.com/RazumO/MultipleParentsTree
+http://razumo.github.io/MultipleParentsTree/

@@ -1,0 +1,27 @@
+{ 
+"name": "Product C",
+"value": "3",
+"children": [
+    { 
+        "name": "Product A",
+        "value": "2",
+        "children": [
+            { "name": "Product A1" , "value": "1"},
+            { "name": "Product A2" , "value": "1"},
+            { "name": "Product A3" , "value": "1"}
+        ]
+    },
+    {
+        "name": "Product B",
+         "value": "2",
+        "children": [
+            { "name": "Product B1", "size": 1000 , "value": "1" },
+            { "name": "Product B2", "size": 3000 , "value": "1" }
+        ]
+    },
+    {
+        "name":"Product F",
+        "value": "2"
+    }
+]
+}
