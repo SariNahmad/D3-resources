@@ -4,7 +4,7 @@
 "children": [
     { 
         "name": "Sylvia",
-        "value": "100",
+        "value": "75",
         "children": [
             { "name": "A" , "value": "25"},
             { "name": "B" , "value": "25"},
@@ -13,16 +13,15 @@
     },
     {
         "name": "David",
-         "value": "75",
+        "value": "75",
         "children": [
             { "name": "A", "size": 1000 , "value": "25" },
-            { "name": "B", "size": 3000 , "value": "25", "coupling_id": 2 }
+            { "name": "B", "size": 3000 , "value": "25" }
         ]
     },
     {
         "name":"sari",
-        "coupling_id": 1,
-        "value": "50"
+        "value": "75"
     }
 ]
 }

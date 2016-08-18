@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=n5NcCoa9dDU&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p
+---------------------------------------------------
 <!doctype html>
 <html>
 <head>
@@ -18,7 +20,7 @@
 </html>
 
 ---------------------------------------------------
-<!doctype html>
+<!doctype html - 2 select and append>
 <html>
 <head>
     <title> D3 tutorial</title>
@@ -36,7 +38,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html - 3 basic svg shapes >
 <html>
 <head>
     <title> D3 tutorial</title>
@@ -75,7 +77,7 @@
 </html>
 
 ---------------------------------------------------
-<!doctype html>
+<!doctype html 4- visualizing data>
 <html>
     
 <head>
@@ -108,7 +110,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html - 5 scales>
 <html>
     
 <head>
@@ -152,7 +154,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html - 6- groups and axes>
 <html>
     
 <head>
@@ -207,7 +209,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html - more DOM then data>
+<!doctype html - 7 enter/update/exit  DOM vs data>
 <html>
     
 <head>
@@ -249,7 +251,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html 7 enter/update/exit>
 <html>
     
 <head>
@@ -285,7 +287,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html 8 - transitions>
 <html>
     
 <head>
@@ -323,7 +325,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html 8 - transitions>
 <html>
     
 <head>
@@ -359,7 +361,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html 10 loading external data>
 <html>
     
 <head>
@@ -403,7 +405,7 @@
     
 </html>
 ---------------------------------------------------
-<!doctype html>
+<!doctype html 11 - paths>
 <html>
     
 <head>
@@ -925,15 +927,106 @@
     
 </html>
 ---------------------------------------------------
+<!doctype html - 19 treemap layout >
+<html>
+    
+<head>
+    <title> D3 tutorial</title>
+    <script src = "http://d3js.org/d3.v3.min.js"></script>
+</head>
 
----------------------------------------------------
+<body>
+    
+    <script>
+        var color = d3.scale.category10();
 
+        var canvas = d3.select("body").append("svg")
+                .attr("width", 500)
+                .attr("height", 500)
+        
+        
+        d3.json("family.json", function(data){
+           
+            var treemap = d3.layout.treemap()
+                .size([500,500])
+                .nodes(data);
+            
+            var cells = canvas.selectAll(".cell")
+                .data(treemap)
+                .enter()
+                .append("g")
+                .attr("class", "cell");
+            
+            cells.append("rect")
+                .attr("x", function(d) { return d.x;})
+                .attr("y",  function(d) { return d.y;})
+                .attr("width", function(d) { return d.dx;})
+                .attr("height", function(d) { return d.dy;})
+                .attr("fill", function(d) { return d.children ? null : color(d.parent.name); })
+                .attr("stroke", "#fff");
+            
+            cells.append("text")
+                .attr("x", function(d) { return d.x + d.dx/2;})
+                .attr("y", function(d) { return d.y + d.dy/2;})
+                .attr("fill", "black")
+                .text(function(d) { return d.children ? null : d.name;})
+                .attr("text-anchor", "middle");
+        })
+                
+    </script>
+    
+</body>
+    
+</html>
 ---------------------------------------------------
+<!doctype html - 20 maps 
+can also get data from shape file and convent to geojson using QGIS
+geo projections avaiable: github/mbostock/d3/wiki/Geo-Projections>
+<html>
+    
+<head>
+    <title> D3 tutorial</title>
+    <script src = "http://d3js.org/d3.v3.min.js"></script>
+    <style type = "text/css"> </style>
+</head>
 
----------------------------------------------------
-
----------------------------------------------------
-
----------------------------------------------------
-
----------------------------------------------------
+<body>
+    
+    <script>
+        var color = d3.scale.linear()
+                .domain([0,10])
+                .range(["red", "blue"])
+        
+        var canvas = d3.select("body").append("svg")
+                .attr("width", 760)
+                .attr("height", 700);
+        
+        d3.json("map.geojson", function(data){
+            
+            var group = canvas.selectAll("g")
+                .data(data.features)
+                .enter()
+                .append("g");
+            
+            var projection = d3.geo.mercator().scale(500).translate([1000,550]);
+            var path = d3.geo.path().projection(projection);
+            
+            var areas = group.append("path")
+                .attr("d", path)
+                .attr("class", "area")
+                .attr("fill", function(d) { return color(d.value);});
+            
+            group.append("text")
+                .attr("x", function(d) {return path.centroid(d)[0]})
+                .attr("y", function(d) {return path.centroid(d)[1]})
+                .attr("text-anchor", "middle")
+                .text(function(d) {return d.properties.party;})
+            
+            
+        })
+         
+    </script>
+    
+</body>
+    
+</html>
