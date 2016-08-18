@@ -1,27 +1,27 @@
 { 
 "name": "Product C",
-"value": "3",
+"value": 100,
 "children": [
     { 
-        "name": "Product A",
+        "name": "Sarah",
         "value": "2",
         "children": [
-            { "name": "Product A1" , "value": "1"},
-            { "name": "Product A2" , "value": "1"},
-            { "name": "Product A3" , "value": "1"}
+            { "name": "Product A1" , "value": 40},
+            { "name": "Product A2" , "value": 50},
+            { "name": "Product A3" , "value": 60}
         ]
     },
     {
         "name": "Product B",
-         "value": "2",
+        "value": "2",
         "children": [
-            { "name": "Product B1", "size": 1000 , "value": "1" },
-            { "name": "Product B2", "size": 3000 , "value": "1" }
+            { "name": "Product B1", "size": 1000 , "value": 100 },
+            { "name": "Product B2", "size": 3000 , "value": 0 }
         ]
     },
     {
         "name":"Product F",
-        "value": "2"
+        "value": 75
     }
 ]
 }

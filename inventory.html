@@ -1,36 +1,88 @@
-<!doctype html - 14/15 tree layout (hierarchical relationships) rotate sideways>
+<!doctype html - notes
+http://jsfiddle.net/augburto/YMa2y/
+http://bl.ocks.org/robschmuecker/6afc2ecb05b191359862
+http://razumo.github.io/MultipleParentsTree/
+>
 <html>
     
 <head>
-    <title> D3 tutorial</title>
+    <title> Inventory </title>
     <script src = "http://d3js.org/d3.v3.min.js"></script>
 </head>
 
 <body>
+    <meta charset="utf-8">
+    <style> /* set the CSS */
+
+        body { font: 12px Calibri;}
+
+        path { 
+            stroke: black;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: grey;
+            stroke-width: 1;
+            shape-rendering: crispEdges;
+        }
+
+        div.tooltip {
+            position: absolute;    
+            text-align: center;    
+            width: 60px;    
+            height: 28px;        
+            padding: 2px;    
+            font: 12px sans-serif;    
+            background: lightsteelblue;    
+            border: 0px;                    
+            border-radius: 8px;
+        /*  pointer-events: none;    This line needs to be removed */
+        }
+
+    </style>   
     
     <script>
 
-        var width = 500
-        var height = 500 
-        var padding = 25 
-        var tree_padding = 300
+        var width = 1000;
+        var height = 1000;
+        
+        var padding = 0 
+              
+        var rectangle_width = 80
+        var rectangle_height = 40
         
         var canvas = d3.select("body").append("svg")
                 .attr("width", width - padding)
                 .attr("height", height - padding)
                 .append("g")
-                    .attr("transform", "translate(50,50)");
+                    .attr("transform", "translate(350,10)");
         
         var tree = d3.layout.tree()
-            .size([width - tree_padding, height - tree_padding]);
+            .size([width, height])
+            .nodeSize([rectangle_width+10, 50]);
         
+        //
+        // Define 'div' for tooltips
+var div = d3.select("body")
+    .append("div")  // declare the tooltip div 
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+        //
+        
+             
         d3.json("inventory.json", function(data){
             
             var nodes = tree.nodes(data);
             var links = tree.links(nodes);
             
+            
+            
             var color = d3.scale.linear()
-                .domain([0,3])
+                .domain([0,100])
                 .range(["red", "blue"]);
                 
             
@@ -40,18 +92,39 @@
                 .append("g")
                     .attr("class", "node")
                     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")" })
+                // Tooltip 
+                .on("mouseover", function(d) {        
+                    div.style("opacity", .8);    
+                    div .text(d.value)
+                        .style("left", (d3.event.pageX) + "px")             
+                        .style("top", (d3.event.pageY - 28) + "px")
+                        //return tooltip.style("visibility", "visible");
+                    })
+                //.on("mousemove", function(d) {        
+                //    div.style("opacity", 1);    
+                //})
+                .on("mouseout", function(d) {        
+                    div.style("opacity", 0);    
+                })
+               // .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+                //.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
             
-            node.append("circle")
-                .attr("r", 20)
+            node.append("rect")
+                .attr("width", rectangle_width)
+                .attr("height", rectangle_height)
                 .attr("opacity", .75)
-                .attr("fill", function(d){ return color(d.value);});
+                .attr("fill", function(d){ return color(d.value);})
             
             node.append("text")
+                .attr("x", rectangle_width/2)
+                .attr("y", rectangle_height/2)
+                .attr("dy", ".35em")
+                .attr("text-anchor", "middle")
                 .text(function (d) {return d.name;})
-                .attr("transform", "translate(10,5)")
+            
             
             var diagonal = d3.svg.diagonal()
-                .projection(function(d){return [d.x, d.y]})
+                .projection(function(d){return [d.x + rectangle_width/2, d.y]})
             
             canvas.selectAll(".link")
                 .data(links)
@@ -60,7 +133,8 @@
                 .attr("class", "link")
                 .attr("fill", "none")
                 .attr("stroke", "grey")
-                .attr("d", diagonal);
+                .attr("d", diagonal)
+            
             
         })
                 
